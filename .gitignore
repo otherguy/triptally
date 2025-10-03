@@ -91,6 +91,9 @@ backend/doc/
 backend/docs/
 backend/rdoc/
 
+# Test and coverage output
+backend/rspec/
+
 # ==========================================
 # Mobile (Flutter/Dart) - iOS & Android only
 # ==========================================
