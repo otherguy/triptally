@@ -48,7 +48,5 @@ group :development, :test do
   # Swagger/OpenAPI documentation
   gem "rswag-specs", "~> 2.16"
 
-  gem "drg", "~> 1.6"
-  gem "abbrev", "~> 0.1"
-  gem "byebug", "~> 12.0"
+  gem "pessimize", "~> 0.5"
 end
