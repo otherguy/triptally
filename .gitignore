@@ -1,0 +1,184 @@
+# ==========================================
+# Shared / General
+# ==========================================
+
+# OS Files
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+.fuse_hidden*
+.directory
+.Trash-*
+.nfs*
+
+# IDEs and Editors
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+*.iml
+*.ipr
+*.iws
+.project
+.classpath
+.settings/
+*.tmproj
+*.tmproject
+tmtags
+.elixir_ls/
+.history/
+
+# Environment Variables
+.env
+.env.local
+.env.*.local
+.envrc
+
+# ==========================================
+# Backend (Ruby/Rails)
+# ==========================================
+
+# Bundler
+backend/.bundle/
+backend/vendor/bundle/
+backend/vendor/ruby/
+
+# Rails temporary files
+backend/tmp/
+backend/log/
+backend/storage/
+backend/public/uploads/
+backend/public/assets/
+backend/public/packs/
+backend/public/packs-test/
+
+# Database
+backend/*.sqlite3
+backend/*.sqlite3-journal
+backend/*.sqlite3-*
+backend/db/*.sqlite3
+backend/db/*.sqlite3-journal
+backend/db/*.sqlite3-*
+
+# Rails configuration
+backend/config/master.key
+backend/config/credentials/*.key
+
+# Node modules (if using Webpacker/assets)
+backend/node_modules/
+backend/yarn-error.log
+
+# Test coverage
+backend/coverage/
+backend/.rspec_status
+
+# Spring preloader
+backend/.spring
+backend/spring-*.pid
+
+# Byebug
+backend/.byebug_history
+
+# RubyMine
+backend/.rakeTasks
+
+# Documentation
+backend/.yardoc/
+backend/_yardoc/
+backend/doc/
+backend/rdoc/
+
+# ==========================================
+# Mobile (Flutter/Dart)
+# ==========================================
+
+# Flutter/Dart/Pub related
+mobile/**/doc/api/
+mobile/**/ios/Flutter/.last_build_id
+mobile/.dart_tool/
+mobile/.flutter-plugins
+mobile/.flutter-plugins-dependencies
+mobile/.pub-cache/
+mobile/.pub/
+mobile/build/
+mobile/coverage/
+mobile/.packages
+
+# Android specific
+mobile/android/.gradle/
+mobile/android/captures/
+mobile/android/local.properties
+mobile/android/**/GeneratedPluginRegistrant.java
+mobile/android/key.properties
+mobile/android/app/release/
+mobile/android/app/debug/
+mobile/android/app/profile/
+
+# iOS specific
+mobile/ios/**/*.mode1v3
+mobile/ios/**/*.mode2v3
+mobile/ios/**/*.moved-aside
+mobile/ios/**/*.pbxuser
+mobile/ios/**/*.perspectivev3
+mobile/ios/**/*sync/
+mobile/ios/**/.sconsign.dblite
+mobile/ios/**/.tags*
+mobile/ios/**/.vagrant/
+mobile/ios/**/DerivedData/
+mobile/ios/**/Icon?
+mobile/ios/**/Pods/
+mobile/ios/**/.symlinks/
+mobile/ios/Flutter/Generated.xcconfig
+mobile/ios/Flutter/ephemeral/
+mobile/ios/Flutter/flutter_export_environment.sh
+mobile/ios/Flutter/app.flx
+mobile/ios/Flutter/app.zip
+mobile/ios/Flutter/flutter_assets/
+mobile/ios/ServiceDefinitions.json
+mobile/ios/Runner/GeneratedPluginRegistrant.*
+mobile/ios/.generated/
+
+# macOS specific (if supporting macOS)
+mobile/macos/**/*.mode1v3
+mobile/macos/**/*.mode2v3
+mobile/macos/**/*.moved-aside
+mobile/macos/**/*.pbxuser
+mobile/macos/**/*.perspectivev3
+mobile/macos/**/*sync/
+mobile/macos/**/.sconsign.dblite
+mobile/macos/**/.tags*
+mobile/macos/**/.vagrant/
+mobile/macos/**/DerivedData/
+mobile/macos/**/Icon?
+mobile/macos/**/Pods/
+mobile/macos/**/.symlinks/
+mobile/macos/Flutter/Generated.xcconfig
+mobile/macos/Flutter/ephemeral/
+mobile/macos/Flutter/flutter_export_environment.sh
+mobile/macos/Runner/GeneratedPluginRegistrant.*
+mobile/macos/.generated/
+
+# Web specific
+mobile/web/.dart_tool/
+mobile/web/.packages
+
+# Windows specific (if supporting Windows)
+mobile/windows/flutter/generated_plugin_registrant.cc
+mobile/windows/flutter/generated_plugin_registrant.h
+mobile/windows/flutter/generated_plugins.cmake
+
+# Linux specific (if supporting Linux)
+mobile/linux/flutter/generated_plugin_registrant.cc
+mobile/linux/flutter/generated_plugin_registrant.h
+mobile/linux/flutter/generated_plugins.cmake
+
+# Test coverage
+mobile/lcov.info
+
+# Obfuscation related
+mobile/app.*.map.json
+
+# Exceptions to above rules
+!/mobile/packages/flutter_tools/test/data/dart_dependencies_test/**/.packages
