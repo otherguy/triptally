@@ -5,9 +5,12 @@ class CreateTrips < ActiveRecord::Migration[8.0]
       t.text :description
       t.date :start_date
       t.date :end_date
-      t.references :user, null: false, foreign_key: true
+      t.string :user_id, null: false
 
       t.timestamps
     end
+
+    add_index :trips, :user_id
+    add_foreign_key :trips, :users
   end
 end

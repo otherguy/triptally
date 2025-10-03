@@ -364,6 +364,8 @@ GEM
     unicode-emoji (4.1.0)
     uri (1.0.3)
     useragent (0.16.11)
+    uuid7 (0.2.0)
+      zeitwerk (~> 2.4)
     websocket-driver (0.8.0)
       base64
       websocket-extensions (>= 0.1.0)
@@ -413,6 +415,7 @@ DEPENDENCIES
   sqlite3 (~> 2.7)
   strong_migrations (~> 2.0)
   tzinfo-data
+  uuid7 (~> 0.2)
 
 RUBY VERSION
    ruby 3.4.6p54

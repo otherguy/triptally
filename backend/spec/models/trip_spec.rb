@@ -10,7 +10,7 @@ RSpec.describe Trip, type: :model do
   end
 
   describe "custom validations" do
-    context "end_date_after_start_date validation" do
+    context "with end_date_after_start_date validation" do
       it "is valid when end_date is after start_date" do
         trip = build(:trip, start_date: Time.zone.today, end_date: Time.zone.today + 1.day)
         expect(trip).to be_valid

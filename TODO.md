@@ -9,8 +9,8 @@
 
 ## Backend
 
-- [ ] Change user IDs to UUIDs (v7) for better scalability
-- [ ] Implement JWT token blacklisting using Redis cache for proper logout functionality
+- [x] Change user IDs to UUIDs (v7) for better scalability
+- [ ] Implement JWT token blacklisting using Rails cache for proper logout functionality
 - [ ] Add API rate limiting
 - [ ] Add email verification for user registration and update
 - [ ] Implement password reset functionality

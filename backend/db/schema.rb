@@ -16,13 +16,13 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_01_150516) do
     t.text "description"
     t.date "start_date"
     t.date "end_date"
-    t.integer "user_id", null: false
+    t.string "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_trips_on_user_id"
   end
 
-  create_table "users", force: :cascade do |t|
+  create_table "users", id: :string, force: :cascade do |t|
     t.string "email"
     t.string "name"
     t.string "password_digest"

@@ -39,11 +39,13 @@ gem "bcrypt", "~> 3.1"
 # JSON Web Token library
 gem "jwt", "~> 3.1"
 
+# UUID v7 generation
+gem "uuid7", "~> 0.2"
+
 # Sanitize html from inputs
 gem "sanitize", "~> 7.0"
 
 group :development, :test do
-
   # Load environment variables from .env files [https://github.com/bkeepers/dotenv]
   gem "dotenv-rails", "~> 3.1"
 
