@@ -1,5 +1,5 @@
 class Api::V1::AuthController < Api::V1::BaseController
-  skip_before_action :authenticate_request!, only: [:register, :login]
+  skip_before_action :authenticate_request!, only: [ :register, :login ]
 
   def register
     user_params = register_params
@@ -10,9 +10,9 @@ class Api::V1::AuthController < Api::V1::BaseController
     if user.save
       token = generate_token(user)
       render json: {
-        message: 'User created successfully',
+        message: "User created successfully",
         user: user_response(user),
-        token: token
+        token: token,
       }, status: :created
     else
       render json: { errors: user.errors.full_messages }, status: :unprocessable_entity
@@ -28,23 +28,23 @@ class Api::V1::AuthController < Api::V1::BaseController
     if user&.authenticate(login_params[:password])
       token = generate_token(user)
       render json: {
-        message: 'Login successful',
+        message: "Login successful",
         user: user_response(user),
-        token: token
+        token: token,
       }
     else
-      render json: { error: 'Invalid email or password' }, status: :unauthorized
+      render json: { error: "Invalid email or password" }, status: :unauthorized
     end
   end
 
   def logout
-    render json: { message: 'Logged out successfully' }
+    render json: { message: "Logged out successfully" }
   end
 
   private
 
   def register_params
-    required_params = [:name, :email, :password]
+    required_params = [ :name, :email, :password ]
     permitted_params = params.permit(*required_params)
 
     missing_params = required_params - permitted_params.keys.map(&:to_sym)
@@ -57,7 +57,7 @@ class Api::V1::AuthController < Api::V1::BaseController
   end
 
   def login_params_validation
-    required_params = [:email, :password]
+    required_params = [ :email, :password ]
     permitted_params = params.permit(*required_params)
 
     missing_params = required_params - permitted_params.keys.map(&:to_sym)
@@ -72,16 +72,16 @@ class Api::V1::AuthController < Api::V1::BaseController
   def generate_token(user)
     payload = {
       user_id: user.id,
-      exp: 24.hours.from_now.to_i
+      exp: 24.hours.from_now.to_i,
     }
-    JWT.encode(payload, Rails.application.secret_key_base, 'HS256')
+    JWT.encode(payload, Rails.application.secret_key_base, "HS256")
   end
 
   def user_response(user)
     {
       id: user.id,
       name: user.name,
-      email: user.email
+      email: user.email,
     }
   end
 end

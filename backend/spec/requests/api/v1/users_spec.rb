@@ -16,7 +16,7 @@ RSpec.describe 'Users API', type: :request do
       tags 'Users'
       description 'Get current user profile information'
       produces 'application/json'
-      security [Bearer: []]
+      security [ Bearer: [] ]
 
       response '200', 'User profile retrieved' do
         schema type: :object,
@@ -29,10 +29,10 @@ RSpec.describe 'Users API', type: :request do
                 email: { type: :string },
                 created_at: {
                   type: :string,
-                  format: :datetime
-                }
-              }
-            }
+                  format: :datetime,
+                },
+              },
+            },
           }
 
         let(:id) { user.id }
@@ -45,8 +45,8 @@ RSpec.describe 'Users API', type: :request do
           properties: {
             error: {
               type: :string,
-              example: 'Invalid token'
-            }
+              example: 'Invalid token',
+            },
           }
 
         let(:Authorization) { 'Bearer invalid_token' }
@@ -61,21 +61,21 @@ RSpec.describe 'Users API', type: :request do
       description 'Update current user profile'
       consumes 'application/json'
       produces 'application/json'
-      security [Bearer: []]
+      security [ Bearer: [] ]
 
       parameter name: :user_data, in: :body, schema: {
         type: :object,
         properties: {
           name: {
             type: :string,
-            example: 'Jane Doe'
+            example: 'Jane Doe',
           },
           email: {
             type: :string,
             format: :email,
-            example: 'jane@example.com'
-          }
-        }
+            example: 'jane@example.com',
+          },
+        },
       }
 
       response '200', 'Profile updated successfully' do
@@ -83,23 +83,23 @@ RSpec.describe 'Users API', type: :request do
           properties: {
             message: {
               type: :string,
-              example: 'Profile updated successfully'
+              example: 'Profile updated successfully',
             },
             user: {
               type: :object,
               properties: {
                 id: { type: :integer },
                 name: { type: :string },
-                email: { type: :string }
-              }
-            }
+                email: { type: :string },
+              },
+            },
           }
 
         let(:id) { user.id }
         let(:user_data) do
           {
             name: 'Jane Doe',
-            email: 'jane@example.com'
+            email: 'jane@example.com',
           }
         end
 
@@ -111,22 +111,22 @@ RSpec.describe 'Users API', type: :request do
           properties: {
             message: {
               type: :string,
-              example: 'Profile updated successfully'
+              example: 'Profile updated successfully',
             },
             user: {
               type: :object,
               properties: {
                 id: { type: :integer },
                 name: { type: :string },
-                email: { type: :string }
-              }
-            }
+                email: { type: :string },
+              },
+            },
           }
 
         let(:id) { user.id }
         let(:user_data) do
           {
-            name: 'Jane Updated Name Only'
+            name: 'Jane Updated Name Only',
           }
         end
 
@@ -145,15 +145,15 @@ RSpec.describe 'Users API', type: :request do
           properties: {
             errors: {
               type: :array,
-              items: { type: :string }
-            }
+              items: { type: :string },
+            },
           }
 
         let(:id) { user.id }
         let(:user_data) do
           {
             name: '',
-            email: 'invalid-email'
+            email: 'invalid-email',
           }
         end
 
@@ -165,15 +165,15 @@ RSpec.describe 'Users API', type: :request do
           properties: {
             error: {
               type: :string,
-              example: 'Invalid token'
-            }
+              example: 'Invalid token',
+            },
           }
 
         let(:Authorization) { 'Bearer invalid_token' }
         let(:id) { user.id }
         let(:user_data) do
           {
-            name: 'Jane Doe'
+            name: 'Jane Doe',
           }
         end
 
@@ -186,22 +186,22 @@ RSpec.describe 'Users API', type: :request do
       description 'Replace user profile entirely (full replacement - requires all fields)'
       consumes 'application/json'
       produces 'application/json'
-      security [Bearer: []]
+      security [ Bearer: [] ]
 
       parameter name: :user_data, in: :body, schema: {
         type: :object,
         properties: {
           name: {
             type: :string,
-            example: 'Jane Doe'
+            example: 'Jane Doe',
           },
           email: {
             type: :string,
             format: :email,
-            example: 'jane@example.com'
-          }
+            example: 'jane@example.com',
+          },
         },
-        required: %w[name email]
+        required: %w[name email],
       }
 
       response '200', 'Profile replaced successfully' do
@@ -209,23 +209,23 @@ RSpec.describe 'Users API', type: :request do
           properties: {
             message: {
               type: :string,
-              example: 'Profile replaced successfully'
+              example: 'Profile replaced successfully',
             },
             user: {
               type: :object,
               properties: {
                 id: { type: :integer },
                 name: { type: :string },
-                email: { type: :string }
-              }
-            }
+                email: { type: :string },
+              },
+            },
           }
 
         let(:id) { user.id }
         let(:user_data) do
           {
             name: 'Jane Doe Replaced',
-            email: 'jane.replaced@example.com'
+            email: 'jane.replaced@example.com',
           }
         end
 
@@ -237,14 +237,14 @@ RSpec.describe 'Users API', type: :request do
           properties: {
             error: {
               type: :string,
-              example: 'Missing required parameters: email'
-            }
+              example: 'Missing required parameters: email',
+            },
           }
 
         let(:id) { user.id }
         let(:user_data) do
           {
-            name: 'Jane Doe'
+            name: 'Jane Doe',
           }
         end
 

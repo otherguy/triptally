@@ -15,30 +15,30 @@ RSpec.configure do |config|
         version: 'v1',
         description: 'API for TripTally mobile application - trip planning and management',
         contact: {
-          name: 'TripTally API Support'
-        }
+          name: 'TripTally API Support',
+        },
       },
       paths: {},
       servers: [
         {
           url: 'http://localhost:3000',
-          description: 'Development server'
+          description: 'Development server',
         },
         {
           url: 'https://api.triptally.com',
-          description: 'Production server'
-        }
+          description: 'Production server',
+        },
       ],
       components: {
         securitySchemes: {
           Bearer: {
             type: :http,
             scheme: :bearer,
-            bearerFormat: 'JWT'
-          }
-        }
-      }
-    }
+            bearerFormat: 'JWT',
+          },
+        },
+      },
+    },
   }
 
   config.openapi_format = :yaml

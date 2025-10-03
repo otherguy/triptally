@@ -15,20 +15,20 @@ RSpec.describe 'Auth API', type: :request do
         properties: {
           name: {
             type: :string,
-            example: 'John Doe'
+            example: 'John Doe',
           },
           email: {
             type: :string,
             format: :email,
-            example: 'john@example.com'
+            example: 'john@example.com',
           },
           password: {
             type: :string,
             minLength: 6,
-            example: 'password123'
-          }
+            example: 'password123',
+          },
         },
-        required: %w[name email password]
+        required: %w[name email password],
       }
 
       response '201', 'User created successfully' do
@@ -36,27 +36,27 @@ RSpec.describe 'Auth API', type: :request do
           properties: {
             message: {
               type: :string,
-              example: 'User created successfully'
+              example: 'User created successfully',
             },
             user: {
               type: :object,
               properties: {
                 id: { type: :integer },
                 name: { type: :string },
-                email: { type: :string }
-              }
+                email: { type: :string },
+              },
             },
             token: {
               type: :string,
-              example: 'eyJhbGciOiJIUzI1NiJ9...'
-            }
+              example: 'eyJhbGciOiJIUzI1NiJ9...',
+            },
           }
 
         let(:user_data) do
           {
             name: 'John Doe',
             email: 'john@example.com',
-            password: 'password123'
+            password: 'password123',
           }
         end
 
@@ -68,15 +68,15 @@ RSpec.describe 'Auth API', type: :request do
           properties: {
             errors: {
               type: :array,
-              items: { type: :string }
-            }
+              items: { type: :string },
+            },
           }
 
         let(:user_data) do
           {
             name: '',
             email: 'invalid-email',
-            password: '123'
+            password: '123',
           }
         end
 
@@ -88,13 +88,13 @@ RSpec.describe 'Auth API', type: :request do
           properties: {
             error: {
               type: :string,
-              example: 'Missing required parameters: name, email'
-            }
+              example: 'Missing required parameters: name, email',
+            },
           }
 
         let(:user_data) do
           {
-            password: 'password123'
+            password: 'password123',
           }
         end
 
@@ -116,14 +116,14 @@ RSpec.describe 'Auth API', type: :request do
           email: {
             type: :string,
             format: :email,
-            example: 'john@example.com'
+            example: 'john@example.com',
           },
           password: {
             type: :string,
-            example: 'password123'
-          }
+            example: 'password123',
+          },
         },
-        required: %w[email password]
+        required: %w[email password],
       }
 
       response '200', 'Login successful' do
@@ -131,27 +131,27 @@ RSpec.describe 'Auth API', type: :request do
           properties: {
             message: {
               type: :string,
-              example: 'Login successful'
+              example: 'Login successful',
             },
             user: {
               type: :object,
               properties: {
                 id: { type: :integer },
                 name: { type: :string },
-                email: { type: :string }
-              }
+                email: { type: :string },
+              },
             },
             token: {
               type: :string,
-              example: 'eyJhbGciOiJIUzI1NiJ9...'
-            }
+              example: 'eyJhbGciOiJIUzI1NiJ9...',
+            },
           }
 
         let!(:user) { User.create!(name: 'John Doe', email: 'john@example.com', password: 'password123') }
         let(:credentials) do
           {
             email: 'john@example.com',
-            password: 'password123'
+            password: 'password123',
           }
         end
 
@@ -163,15 +163,15 @@ RSpec.describe 'Auth API', type: :request do
           properties: {
             error: {
               type: :string,
-              example: 'Invalid email or password'
-            }
+              example: 'Invalid email or password',
+            },
           }
 
         let!(:user) { User.create!(name: 'John Doe', email: 'john@example.com', password: 'password123') }
         let(:credentials) do
           {
             email: 'john@example.com',
-            password: 'wrongpassword'
+            password: 'wrongpassword',
           }
         end
 
@@ -183,13 +183,13 @@ RSpec.describe 'Auth API', type: :request do
           properties: {
             error: {
               type: :string,
-              example: 'Missing required parameters: email, password'
-            }
+              example: 'Missing required parameters: email, password',
+            },
           }
 
         let(:credentials) do
           {
-            email: 'john@example.com'
+            email: 'john@example.com',
           }
         end
 
@@ -203,15 +203,15 @@ RSpec.describe 'Auth API', type: :request do
       tags 'Authentication'
       description 'Logout user (currently stateless - just returns success message)'
       produces 'application/json'
-      security [Bearer: []]
+      security [ Bearer: [] ]
 
       response '200', 'Logged out successfully' do
         schema type: :object,
           properties: {
             message: {
               type: :string,
-              example: 'Logged out successfully'
-            }
+              example: 'Logged out successfully',
+            },
           }
 
         let!(:user) { User.create!(name: 'John Doe', email: 'john@example.com', password: 'password123') }
@@ -228,8 +228,8 @@ RSpec.describe 'Auth API', type: :request do
           properties: {
             error: {
               type: :string,
-              example: 'Invalid token'
-            }
+              example: 'Invalid token',
+            },
           }
 
         let(:Authorization) { 'Bearer invalid_token' }

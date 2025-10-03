@@ -23,7 +23,7 @@ RSpec.describe 'Trips API', type: :request do
       tags 'Trips'
       description 'Get all trips for the authenticated user'
       produces 'application/json'
-      security [Bearer: []]
+      security [ Bearer: [] ]
 
       response '200', 'Trips retrieved successfully' do
         schema type: :object,
@@ -38,23 +38,23 @@ RSpec.describe 'Trips API', type: :request do
                   description: { type: :string },
                   start_date: {
                     type: :string,
-                    format: :date
+                    format: :date,
                   },
                   end_date: {
                     type: :string,
-                    format: :date
+                    format: :date,
                   },
                   created_at: {
                     type: :string,
-                    format: :datetime
+                    format: :datetime,
                   },
                   updated_at: {
                     type: :string,
-                    format: :datetime
-                  }
-                }
-              }
-            }
+                    format: :datetime,
+                  },
+                },
+              },
+            },
           }
 
         run_test!
@@ -65,8 +65,8 @@ RSpec.describe 'Trips API', type: :request do
           properties: {
             error: {
               type: :string,
-              example: 'Invalid token'
-            }
+              example: 'Invalid token',
+            },
           }
 
         let(:Authorization) { 'Bearer invalid_token' }
@@ -80,31 +80,31 @@ RSpec.describe 'Trips API', type: :request do
       description 'Create a new trip for the authenticated user'
       consumes 'application/json'
       produces 'application/json'
-      security [Bearer: []]
+      security [ Bearer: [] ]
 
       parameter name: :trip_data, in: :body, schema: {
         type: :object,
         properties: {
           title: {
             type: :string,
-            example: 'Winter Getaway'
+            example: 'Winter Getaway',
           },
           description: {
             type: :string,
-            example: 'A cozy mountain retreat'
+            example: 'A cozy mountain retreat',
           },
           start_date: {
             type: :string,
             format: :date,
-            example: '2024-12-20'
+            example: '2024-12-20',
           },
           end_date: {
             type: :string,
             format: :date,
-            example: '2024-12-27'
-          }
+            example: '2024-12-27',
+          },
         },
-        required: %w[title]
+        required: %w[title],
       }
 
       response '201', 'Trip created successfully' do
@@ -112,7 +112,7 @@ RSpec.describe 'Trips API', type: :request do
           properties: {
             message: {
               type: :string,
-              example: 'Trip created successfully'
+              example: 'Trip created successfully',
             },
             trip: {
               type: :object,
@@ -122,22 +122,22 @@ RSpec.describe 'Trips API', type: :request do
                 description: { type: :string },
                 start_date: {
                   type: :string,
-                  format: :date
+                  format: :date,
                 },
                 end_date: {
                   type: :string,
-                  format: :date
+                  format: :date,
                 },
                 created_at: {
                   type: :string,
-                  format: :datetime
+                  format: :datetime,
                 },
                 updated_at: {
                   type: :string,
-                  format: :datetime
-                }
-              }
-            }
+                  format: :datetime,
+                },
+              },
+            },
           }
 
         let(:trip_data) do
@@ -145,7 +145,7 @@ RSpec.describe 'Trips API', type: :request do
             title: 'Winter Getaway',
             description: 'A cozy mountain retreat',
             start_date: '2024-12-20',
-            end_date: '2024-12-27'
+            end_date: '2024-12-27',
           }
         end
 
@@ -157,7 +157,7 @@ RSpec.describe 'Trips API', type: :request do
           properties: {
             message: {
               type: :string,
-              example: 'Trip created successfully'
+              example: 'Trip created successfully',
             },
             trip: {
               type: :object,
@@ -166,34 +166,34 @@ RSpec.describe 'Trips API', type: :request do
                 title: { type: :string },
                 description: {
                   type: :string,
-                  nullable: true
+                  nullable: true,
                 },
                 start_date: {
                   type: :string,
                   format: :date,
-                  nullable: true
+                  nullable: true,
                 },
                 end_date: {
                   type: :string,
                   format: :date,
-                  nullable: true
+                  nullable: true,
                 },
                 created_at: {
                   type: :string,
-                  format: :datetime
+                  format: :datetime,
                 },
                 updated_at: {
                   type: :string,
-                  format: :datetime
-                }
-              }
-            }
+                  format: :datetime,
+                },
+              },
+            },
           }
 
         let(:trip_data) do
           {
             title: 'Trip Without Dates',
-            description: 'A flexible trip without fixed dates'
+            description: 'A flexible trip without fixed dates',
           }
         end
 
@@ -205,14 +205,14 @@ RSpec.describe 'Trips API', type: :request do
           properties: {
             errors: {
               type: :array,
-              items: { type: :string }
-            }
+              items: { type: :string },
+            },
           }
 
         let(:trip_data) do
           {
             title: '',
-            description: 'A trip with no title'
+            description: 'A trip with no title',
           }
         end
 
@@ -224,8 +224,8 @@ RSpec.describe 'Trips API', type: :request do
           properties: {
             error: {
               type: :string,
-              example: 'Invalid token'
-            }
+              example: 'Invalid token',
+            },
           }
 
         let(:Authorization) { 'Bearer invalid_token' }
@@ -233,7 +233,7 @@ RSpec.describe 'Trips API', type: :request do
           {
             title: 'Test Trip',
             start_date: '2024-12-20',
-            end_date: '2024-12-27'
+            end_date: '2024-12-27',
           }
         end
 
@@ -249,7 +249,7 @@ RSpec.describe 'Trips API', type: :request do
       tags 'Trips'
       description 'Get details of a specific trip'
       produces 'application/json'
-      security [Bearer: []]
+      security [ Bearer: [] ]
 
       response '200', 'Trip retrieved successfully' do
         schema type: :object,
@@ -262,22 +262,22 @@ RSpec.describe 'Trips API', type: :request do
                 description: { type: :string },
                 start_date: {
                   type: :string,
-                  format: :date
+                  format: :date,
                 },
                 end_date: {
                   type: :string,
-                  format: :date
+                  format: :date,
                 },
                 created_at: {
                   type: :string,
-                  format: :datetime
+                  format: :datetime,
                 },
                 updated_at: {
                   type: :string,
-                  format: :datetime
-                }
-              }
-            }
+                  format: :datetime,
+                },
+              },
+            },
           }
 
         let(:id) { trip.id }
@@ -290,8 +290,8 @@ RSpec.describe 'Trips API', type: :request do
           properties: {
             error: {
               type: :string,
-              example: 'Trip not found'
-            }
+              example: 'Trip not found',
+            },
           }
 
         let(:id) { 999999 }
@@ -304,8 +304,8 @@ RSpec.describe 'Trips API', type: :request do
           properties: {
             error: {
               type: :string,
-              example: 'Invalid token'
-            }
+              example: 'Invalid token',
+            },
           }
 
         let(:Authorization) { 'Bearer invalid_token' }
@@ -320,30 +320,30 @@ RSpec.describe 'Trips API', type: :request do
       description 'Update a specific trip'
       consumes 'application/json'
       produces 'application/json'
-      security [Bearer: []]
+      security [ Bearer: [] ]
 
       parameter name: :trip_data, in: :body, schema: {
         type: :object,
         properties: {
           title: {
             type: :string,
-            example: 'Updated Trip Title'
+            example: 'Updated Trip Title',
           },
           description: {
             type: :string,
-            example: 'Updated description'
+            example: 'Updated description',
           },
           start_date: {
             type: :string,
             format: :date,
-            example: '2024-08-01'
+            example: '2024-08-01',
           },
           end_date: {
             type: :string,
             format: :date,
-            example: '2024-08-07'
-          }
-        }
+            example: '2024-08-07',
+          },
+        },
       }
 
       response '200', 'Trip updated successfully' do
@@ -351,7 +351,7 @@ RSpec.describe 'Trips API', type: :request do
           properties: {
             message: {
               type: :string,
-              example: 'Trip updated successfully'
+              example: 'Trip updated successfully',
             },
             trip: {
               type: :object,
@@ -361,29 +361,29 @@ RSpec.describe 'Trips API', type: :request do
                 description: { type: :string },
                 start_date: {
                   type: :string,
-                  format: :date
+                  format: :date,
                 },
                 end_date: {
                   type: :string,
-                  format: :date
+                  format: :date,
                 },
                 created_at: {
                   type: :string,
-                  format: :datetime
+                  format: :datetime,
                 },
                 updated_at: {
                   type: :string,
-                  format: :datetime
-                }
-              }
-            }
+                  format: :datetime,
+                },
+              },
+            },
           }
 
         let(:id) { trip.id }
         let(:trip_data) do
           {
             title: 'Updated Summer Vacation',
-            description: 'An updated relaxing trip to the beach'
+            description: 'An updated relaxing trip to the beach',
           }
         end
 
@@ -395,15 +395,15 @@ RSpec.describe 'Trips API', type: :request do
           properties: {
             errors: {
               type: :array,
-              items: { type: :string }
-            }
+              items: { type: :string },
+            },
           }
 
         let(:id) { trip.id }
         let(:trip_data) do
           {
             title: '',
-            end_date: '2024-06-01' # before start date
+            end_date: '2024-06-01', # before start date
           }
         end
 
@@ -415,14 +415,14 @@ RSpec.describe 'Trips API', type: :request do
           properties: {
             error: {
               type: :string,
-              example: 'Trip not found'
-            }
+              example: 'Trip not found',
+            },
           }
 
         let(:id) { 999999 }
         let(:trip_data) do
           {
-            title: 'Updated Title'
+            title: 'Updated Title',
           }
         end
 
@@ -435,30 +435,30 @@ RSpec.describe 'Trips API', type: :request do
       description 'Replace a specific trip entirely (full replacement)'
       consumes 'application/json'
       produces 'application/json'
-      security [Bearer: []]
+      security [ Bearer: [] ]
 
       parameter name: :trip_data, in: :body, schema: {
         type: :object,
         properties: {
           title: {
             type: :string,
-            example: 'Updated Trip Title'
+            example: 'Updated Trip Title',
           },
           description: {
             type: :string,
-            example: 'Updated description'
+            example: 'Updated description',
           },
           start_date: {
             type: :string,
             format: :date,
-            example: '2024-08-01'
+            example: '2024-08-01',
           },
           end_date: {
             type: :string,
             format: :date,
-            example: '2024-08-07'
-          }
-        }
+            example: '2024-08-07',
+          },
+        },
       }
 
       response '200', 'Trip replaced successfully' do
@@ -466,7 +466,7 @@ RSpec.describe 'Trips API', type: :request do
           properties: {
             message: {
               type: :string,
-              example: 'Trip replaced successfully'
+              example: 'Trip replaced successfully',
             },
             trip: {
               type: :object,
@@ -475,34 +475,34 @@ RSpec.describe 'Trips API', type: :request do
                 title: { type: :string },
                 description: {
                   type: :string,
-                  nullable: true
+                  nullable: true,
                 },
                 start_date: {
                   type: :string,
                   format: :date,
-                  nullable: true
+                  nullable: true,
                 },
                 end_date: {
                   type: :string,
                   format: :date,
-                  nullable: true
+                  nullable: true,
                 },
                 created_at: {
                   type: :string,
-                  format: :datetime
+                  format: :datetime,
                 },
                 updated_at: {
                   type: :string,
-                  format: :datetime
-                }
-              }
-            }
+                  format: :datetime,
+                },
+              },
+            },
           }
 
         let(:id) { trip.id }
         let(:trip_data) do
           {
-            title: 'PUT Replaced Title'
+            title: 'PUT Replaced Title',
           }
         end
 
@@ -523,7 +523,7 @@ RSpec.describe 'Trips API', type: :request do
           properties: {
             message: {
               type: :string,
-              example: 'Trip replaced successfully'
+              example: 'Trip replaced successfully',
             },
             trip: {
               type: :object,
@@ -533,22 +533,22 @@ RSpec.describe 'Trips API', type: :request do
                 description: { type: :string },
                 start_date: {
                   type: :string,
-                  format: :date
+                  format: :date,
                 },
                 end_date: {
                   type: :string,
-                  format: :date
+                  format: :date,
                 },
                 created_at: {
                   type: :string,
-                  format: :datetime
+                  format: :datetime,
                 },
                 updated_at: {
                   type: :string,
-                  format: :datetime
-                }
-              }
-            }
+                  format: :datetime,
+                },
+              },
+            },
           }
 
         let(:id) { trip.id }
@@ -557,7 +557,7 @@ RSpec.describe 'Trips API', type: :request do
             title: 'PUT Complete Replacement',
             description: 'New description',
             start_date: '2025-01-01',
-            end_date: '2025-01-07'
+            end_date: '2025-01-07',
           }
         end
 
@@ -569,15 +569,15 @@ RSpec.describe 'Trips API', type: :request do
       tags 'Trips'
       description 'Delete a specific trip'
       produces 'application/json'
-      security [Bearer: []]
+      security [ Bearer: [] ]
 
       response '200', 'Trip deleted successfully' do
         schema type: :object,
           properties: {
             message: {
               type: :string,
-              example: 'Trip deleted successfully'
-            }
+              example: 'Trip deleted successfully',
+            },
           }
 
         let(:id) { trip.id }
@@ -590,8 +590,8 @@ RSpec.describe 'Trips API', type: :request do
           properties: {
             error: {
               type: :string,
-              example: 'Trip not found'
-            }
+              example: 'Trip not found',
+            },
           }
 
         let(:id) { 999999 }
@@ -604,8 +604,8 @@ RSpec.describe 'Trips API', type: :request do
           properties: {
             error: {
               type: :string,
-              example: 'Invalid token'
-            }
+              example: 'Invalid token',
+            },
           }
 
         let(:Authorization) { 'Bearer invalid_token' }

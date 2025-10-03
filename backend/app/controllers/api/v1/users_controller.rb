@@ -5,8 +5,8 @@ class Api::V1::UsersController < Api::V1::BaseController
         id: current_user.id,
         name: current_user.name,
         email: current_user.email,
-        created_at: current_user.created_at
-      }
+        created_at: current_user.created_at,
+      },
     }
   end
 
@@ -16,12 +16,12 @@ class Api::V1::UsersController < Api::V1::BaseController
 
     if current_user.update(user_params)
       render json: {
-        message: 'Profile updated successfully',
+        message: "Profile updated successfully",
         user: {
           id: current_user.id,
           name: current_user.name,
-          email: current_user.email
-        }
+          email: current_user.email,
+        },
       }
     else
       render json: { errors: current_user.errors.full_messages }, status: :unprocessable_entity
@@ -36,17 +36,17 @@ class Api::V1::UsersController < Api::V1::BaseController
     # Since name and email are both required for a user, we require both
     replacement_attributes = {
       name: user_params[:name],
-      email: user_params[:email]
+      email: user_params[:email],
     }
 
     if current_user.update(replacement_attributes)
       render json: {
-        message: 'Profile replaced successfully',
+        message: "Profile replaced successfully",
         user: {
           id: current_user.id,
           name: current_user.name,
-          email: current_user.email
-        }
+          email: current_user.email,
+        },
       }
     else
       render json: { errors: current_user.errors.full_messages }, status: :unprocessable_entity
@@ -56,12 +56,12 @@ class Api::V1::UsersController < Api::V1::BaseController
   private
 
   def update_user_params
-    permitted_params = [:name, :email]
+    permitted_params = [ :name, :email ]
     user_params = params.permit(*permitted_params)
 
     # Check if at least one parameter is provided for update
     if user_params.keys.empty?
-      render json: { error: 'At least one parameter must be provided for update' }, status: :bad_request
+      render json: { error: "At least one parameter must be provided for update" }, status: :bad_request
       return
     end
 
@@ -69,7 +69,7 @@ class Api::V1::UsersController < Api::V1::BaseController
   end
 
   def replace_user_params
-    required_params = [:name, :email]
+    required_params = [ :name, :email ]
     permitted_params = params.permit(:name, :email)
 
     # For PUT, both name and email are required

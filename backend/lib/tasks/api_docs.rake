@@ -9,7 +9,7 @@ namespace :api do
       # Run rswag specs to generate the OpenAPI spec
       system("bundle exec rails rswag:specs:swaggerize")
 
-      if File.exist?(Rails.root.join('docs', 'api_spec.yaml'))
+      if File.exist?(Rails.root.join("docs/api_spec.yaml"))
         puts "✅ OpenAPI spec generated: docs/api_spec.yaml"
 
         puts "🔧 Generating static HTML documentation..."
@@ -17,7 +17,7 @@ namespace :api do
         # Generate static HTML using redoc-cli
         system("bun run --yarn docs:generate")
 
-        if File.exist?(Rails.root.join('docs', 'api.html'))
+        if File.exist?(Rails.root.join("docs/api.html"))
           puts "✅ Static HTML documentation generated: docs/api.html"
           puts "📖 Open docs/api.html in your browser to view the documentation"
         else
@@ -35,7 +35,7 @@ namespace :api do
       puts "🔧 Generating OpenAPI specification..."
       system("bundle exec rails rswag:specs:swaggerize")
 
-      if File.exist?(Rails.root.join('docs', 'api_spec.yaml'))
+      if File.exist?(Rails.root.join("docs/api_spec.yaml"))
         puts "✅ OpenAPI spec generated: docs/api_spec.yaml"
       else
         puts "❌ Failed to generate OpenAPI specification"
@@ -45,7 +45,7 @@ namespace :api do
 
     desc "Generate only static HTML from existing spec"
     task html: :environment do
-      spec_file = Rails.root.join('docs', 'api_spec.yaml')
+      spec_file = Rails.root.join("docs/api_spec.yaml")
 
       unless File.exist?(spec_file)
         puts "❌ OpenAPI spec not found: #{spec_file}"
@@ -56,7 +56,7 @@ namespace :api do
       puts "🔧 Generating static HTML documentation..."
       system("bun run --yarn docs:generate")
 
-      if File.exist?(Rails.root.join('docs', 'api.html'))
+      if File.exist?(Rails.root.join("docs/api.html"))
         puts "✅ Static HTML documentation generated: docs/api.html"
         puts "📖 Open docs/api.html in your browser to view the documentation"
       else
@@ -67,7 +67,7 @@ namespace :api do
 
     desc "Serve documentation locally for development"
     task serve: :environment do
-      spec_file = Rails.root.join('docs', 'api_spec.yaml')
+      spec_file = Rails.root.join("docs/api_spec.yaml")
 
       unless File.exist?(spec_file)
         puts "❌ OpenAPI spec not found: #{spec_file}"
@@ -84,8 +84,8 @@ namespace :api do
     desc "Clean generated documentation files"
     task clean: :environment do
       files_to_clean = [
-        Rails.root.join('docs', 'api_spec.yaml'),
-        Rails.root.join('docs', 'api.html')
+        Rails.root.join("docs/api_spec.yaml"),
+        Rails.root.join("docs/api.html"),
       ]
 
       files_to_clean.each do |file|

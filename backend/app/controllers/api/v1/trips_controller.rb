@@ -1,16 +1,16 @@
 class Api::V1::TripsController < Api::V1::BaseController
-  before_action :set_trip, only: [:show, :update, :replace, :destroy]
+  before_action :set_trip, only: [ :show, :update, :replace, :destroy ]
 
   def index
     trips = current_user.trips.order(created_at: :desc)
     render json: {
-      trips: trips.map { |trip| trip_response(trip) }
+      trips: trips.map { |trip| trip_response(trip) },
     }
   end
 
   def show
     render json: {
-      trip: trip_response(@trip)
+      trip: trip_response(@trip),
     }
   end
 
@@ -22,8 +22,8 @@ class Api::V1::TripsController < Api::V1::BaseController
 
     if trip.save
       render json: {
-        message: 'Trip created successfully',
-        trip: trip_response(trip)
+        message: "Trip created successfully",
+        trip: trip_response(trip),
       }, status: :created
     else
       render json: { errors: trip.errors.full_messages }, status: :unprocessable_entity
@@ -36,8 +36,8 @@ class Api::V1::TripsController < Api::V1::BaseController
 
     if @trip.update(trip_params)
       render json: {
-        message: 'Trip updated successfully',
-        trip: trip_response(@trip)
+        message: "Trip updated successfully",
+        trip: trip_response(@trip),
       }
     else
       render json: { errors: @trip.errors.full_messages }, status: :unprocessable_entity
@@ -53,13 +53,13 @@ class Api::V1::TripsController < Api::V1::BaseController
       title: trip_params[:title],
       description: trip_params[:description],
       start_date: trip_params[:start_date],
-      end_date: trip_params[:end_date]
+      end_date: trip_params[:end_date],
     }
 
     if @trip.update(replacement_attributes)
       render json: {
-        message: 'Trip replaced successfully',
-        trip: trip_response(@trip)
+        message: "Trip replaced successfully",
+        trip: trip_response(@trip),
       }
     else
       render json: { errors: @trip.errors.full_messages }, status: :unprocessable_entity
@@ -68,7 +68,7 @@ class Api::V1::TripsController < Api::V1::BaseController
 
   def destroy
     @trip.destroy
-    render json: { message: 'Trip deleted successfully' }
+    render json: { message: "Trip deleted successfully" }
   end
 
   private
@@ -76,11 +76,11 @@ class Api::V1::TripsController < Api::V1::BaseController
   def set_trip
     @trip = current_user.trips.find(params[:id])
   rescue ActiveRecord::RecordNotFound
-    render json: { error: 'Trip not found' }, status: :not_found
+    render json: { error: "Trip not found" }, status: :not_found
   end
 
   def create_trip_params
-    required_params = [:title]
+    required_params = [ :title ]
     permitted_params = params.permit(:title, :description, :start_date, :end_date)
 
     missing_params = required_params - permitted_params.keys.map(&:to_sym)
@@ -93,12 +93,12 @@ class Api::V1::TripsController < Api::V1::BaseController
   end
 
   def update_trip_params
-    permitted_params = [:title, :description, :start_date, :end_date]
+    permitted_params = [ :title, :description, :start_date, :end_date ]
     trip_params = params.permit(*permitted_params)
 
     # Check if at least one parameter is provided for update
     if trip_params.keys.empty?
-      render json: { error: 'At least one parameter must be provided for update' }, status: :bad_request
+      render json: { error: "At least one parameter must be provided for update" }, status: :bad_request
       return
     end
 
@@ -106,7 +106,7 @@ class Api::V1::TripsController < Api::V1::BaseController
   end
 
   def replace_trip_params
-    required_params = [:title]
+    required_params = [ :title ]
     permitted_params = params.permit(:title, :description, :start_date, :end_date)
 
     # For PUT, title is required
@@ -127,7 +127,7 @@ class Api::V1::TripsController < Api::V1::BaseController
       start_date: trip.start_date,
       end_date: trip.end_date,
       created_at: trip.created_at,
-      updated_at: trip.updated_at
+      updated_at: trip.updated_at,
     }
   end
 end
