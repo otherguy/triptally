@@ -1,0 +1,13 @@
+{
+  "name": "triptally-backend",
+  "version": "1.0.0",
+  "description": "TripTally API backend documentation tools",
+  "private": true,
+  "scripts": {
+    "docs:generate": "bunx --bun redoc-cli build docs/api_spec.yaml --output docs/api.html --title \"TripTally API Documentation\"",
+    "docs:serve": "bunx --bun redoc-cli serve docs/api_spec.yaml --title \"TripTally API Documentation\""
+  },
+  "devDependencies": {
+    "redoc-cli": "^0.13.21"
+  }
+}
