@@ -25,10 +25,9 @@ jobs:
 
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: .tool-versions
-          bundler-cache: true
-          working-directory: backend
+
+      - name: Install dependencies
+        run: bundle install
 
       - name: Scan for common Rails security vulnerabilities using static analysis
         run: bin/brakeman --no-pager
@@ -41,10 +40,9 @@ jobs:
 
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: .tool-versions
-          bundler-cache: true
-          working-directory: backend
+
+      - name: Install dependencies
+        run: bundle install
 
       - name: Lint code for consistent style
         run: bin/rubocop -f github
@@ -67,10 +65,9 @@ jobs:
 
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: .tool-versions
-          bundler-cache: true
-          working-directory: backend
+
+      - name: Install dependencies
+        run: bundle install
 
       - name: Setup Bun
         uses: oven-sh/setup-bun@v2
