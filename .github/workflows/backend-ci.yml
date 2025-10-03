@@ -69,8 +69,18 @@ jobs:
           bundler-cache: true
           working-directory: backend
 
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - name: Install JavaScript dependencies
+        run: bun install --yarn
+
       - name: Run tests
         env:
           RAILS_ENV: test
           # REDIS_URL: redis://localhost:6379/0
-        run: bin/rails db:test:prepare test
+        run: |
+          bin/rails db:test:prepare
+          bundle exec rspec
