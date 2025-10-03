@@ -13,9 +13,9 @@ Rails.application.routes.draw do
       delete "auth/logout", to: "auth#logout"
 
       # User profile routes
-      get 'users/:id', to: 'users#show', as: 'user'
-      patch 'users/:id', to: 'users#update'
-      put 'users/:id', to: 'users#replace'
+      get 'users/me', to: 'users#show', as: 'user'
+      patch 'users/me', to: 'users#update'
+      put 'users/me', to: 'users#replace'
 
       # Trip routes
       get 'trips', to: 'trips#index'
