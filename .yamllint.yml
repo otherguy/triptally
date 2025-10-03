@@ -1,0 +1,16 @@
+---
+
+extends: default
+
+yaml-files:
+  - '*.yaml'
+  - '*.yml'
+
+rules:
+  line-length:
+    max: 250
+    level: warning
+
+ignore: |
+  backend/node_modules
+  .git

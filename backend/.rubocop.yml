@@ -1,8 +1,118 @@
+---
 # Omakase Ruby styling for Rails
 inherit_gem: { rubocop-rails-omakase: rubocop.yml }
 
-# Overwrite or add rules to create your own house style
-#
-# # Use `[a, [b, c]]` not `[ a, [ b, c ] ]`
-# Layout/SpaceInsideArrayLiteralBrackets:
-#   Enabled: false
+AllCops:
+  DisplayStyleGuide: true
+  ExtraDetails: true
+  Exclude:
+    - bin/**/*
+    - config/**/*
+    - script/**/*
+    - vendor/**/*
+    - node_modules/**/*
+    - tmp/**/*
+    - config.ru
+  NewCops: enable
+  RubyInterpreters:
+    - ruby
+    - rake
+
+plugins:
+  - rubocop-performance
+  - rubocop-rails
+  - rubocop-rspec
+
+# Check with yard instead.
+Style/Documentation:
+  Enabled: false
+
+Style/StringLiterals:
+  EnforcedStyle: double_quotes
+
+Style/RaiseArgs:
+  Enabled: false
+
+Style/TrailingCommaInArrayLiteral:
+  EnforcedStyleForMultiline: comma
+
+Style/TrailingCommaInHashLiteral:
+  EnforcedStyleForMultiline: comma
+
+Style/TrailingCommaInArguments:
+  Enabled: false
+
+Metrics/AbcSize:
+  Enabled: false
+
+Bundler/OrderedGems:
+  Enabled: false
+
+Performance/TimesMap:
+  Enabled: false
+
+Style/SpecialGlobalVars:
+  Exclude:
+    - Dangerfile
+
+Style/SignalException:
+  Exclude:
+    - Dangerfile
+
+Rails:
+  Enabled: true
+
+RSpec/DescribeClass:
+  Enabled: false
+
+RSpec/MultipleExpectations:
+  Max: 15
+
+RSpec/ExampleLength:
+  Max: 45
+
+Naming/MethodParameterName:
+  Exclude:
+    - spec/**/*
+
+Rails/I18nLocaleTexts:
+  Enabled: true
+  Exclude:
+    - "app/**/sofia/**/*"
+
+# See: https://github.com/rubocop/rubocop/issues/8667
+Rails/LexicallyScopedActionFilter:
+  Enabled: false
+
+Layout/LineLength:
+  Max: 180
+  Exclude:
+    - Dangerfile
+
+Metrics/BlockLength:
+  Max: 30
+  Exclude:
+    - spec/**/*
+    - lib/tasks/**/*
+    - Dangerfile
+
+Metrics/ClassLength:
+  Max: 300
+
+Metrics/MethodLength:
+  Max: 35
+
+Metrics/CyclomaticComplexity:
+  Max: 15
+
+Metrics/PerceivedComplexity:
+  Max: 15
+
+Rails/SkipsModelValidations:
+  Enabled: false
+
+Rails/UnknownEnv:
+  Environments:
+    - production
+    - development
+    - test
