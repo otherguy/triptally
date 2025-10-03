@@ -88,13 +88,26 @@ backend/.rakeTasks
 backend/.yardoc/
 backend/_yardoc/
 backend/doc/
+backend/docs/
 backend/rdoc/
 
 # ==========================================
-# Mobile (Flutter/Dart)
+# Mobile (Flutter/Dart) - iOS & Android only
 # ==========================================
 
-# Flutter/Dart/Pub related
+# Build artifacts and compiled files
+mobile/*.class
+mobile/*.log
+mobile/*.pyc
+mobile/.atom/
+mobile/.build/
+mobile/.buildlog/
+mobile/.history
+mobile/.svn/
+mobile/.swiftpm/
+mobile/migrate_working_dir/
+
+# Flutter/Dart/Pub dependencies and cache
 mobile/**/doc/api/
 mobile/**/ios/Flutter/.last_build_id
 mobile/.dart_tool/
@@ -106,7 +119,7 @@ mobile/build/
 mobile/coverage/
 mobile/.packages
 
-# Android specific
+# Android specific build and configuration
 mobile/android/.gradle/
 mobile/android/captures/
 mobile/android/local.properties
@@ -116,7 +129,7 @@ mobile/android/app/release/
 mobile/android/app/debug/
 mobile/android/app/profile/
 
-# iOS specific
+# iOS specific build and configuration
 mobile/ios/**/*.mode1v3
 mobile/ios/**/*.mode2v3
 mobile/ios/**/*.moved-aside
@@ -140,44 +153,13 @@ mobile/ios/ServiceDefinitions.json
 mobile/ios/Runner/GeneratedPluginRegistrant.*
 mobile/ios/.generated/
 
-# macOS specific (if supporting macOS)
-mobile/macos/**/*.mode1v3
-mobile/macos/**/*.mode2v3
-mobile/macos/**/*.moved-aside
-mobile/macos/**/*.pbxuser
-mobile/macos/**/*.perspectivev3
-mobile/macos/**/*sync/
-mobile/macos/**/.sconsign.dblite
-mobile/macos/**/.tags*
-mobile/macos/**/.vagrant/
-mobile/macos/**/DerivedData/
-mobile/macos/**/Icon?
-mobile/macos/**/Pods/
-mobile/macos/**/.symlinks/
-mobile/macos/Flutter/Generated.xcconfig
-mobile/macos/Flutter/ephemeral/
-mobile/macos/Flutter/flutter_export_environment.sh
-mobile/macos/Runner/GeneratedPluginRegistrant.*
-mobile/macos/.generated/
-
-# Web specific
-mobile/web/.dart_tool/
-mobile/web/.packages
-
-# Windows specific (if supporting Windows)
-mobile/windows/flutter/generated_plugin_registrant.cc
-mobile/windows/flutter/generated_plugin_registrant.h
-mobile/windows/flutter/generated_plugins.cmake
-
-# Linux specific (if supporting Linux)
-mobile/linux/flutter/generated_plugin_registrant.cc
-mobile/linux/flutter/generated_plugin_registrant.h
-mobile/linux/flutter/generated_plugins.cmake
-
-# Test coverage
+# Test coverage reports
 mobile/lcov.info
 
-# Obfuscation related
+# App symbolication files
+mobile/app.*.symbols
+
+# Obfuscation mapping files
 mobile/app.*.map.json
 
 # Exceptions to above rules
