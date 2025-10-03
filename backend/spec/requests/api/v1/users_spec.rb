@@ -11,7 +11,7 @@ RSpec.describe "Api::V1::Users", type: :request do
         get "/api/v1/users/me", headers: auth_headers(user)
 
         expect(response).to have_http_status(:ok)
-        json_response = JSON.parse(response.body)
+        json_response = response.parsed_body
         expect(json_response["user"]["id"]).to eq(user.id)
         expect(json_response["user"]["name"]).to eq(user.name)
         expect(json_response["user"]["email"]).to eq(user.email)
@@ -24,7 +24,7 @@ RSpec.describe "Api::V1::Users", type: :request do
         get "/api/v1/users/me"
 
         expect(response).to have_http_status(:unauthorized)
-        json_response = JSON.parse(response.body)
+        json_response = response.parsed_body
         expect(json_response["error"]).to eq("Missing token")
       end
     end
@@ -34,7 +34,7 @@ RSpec.describe "Api::V1::Users", type: :request do
         get "/api/v1/users/me", headers: { "Authorization" => "Bearer invalid_token" }
 
         expect(response).to have_http_status(:unauthorized)
-        json_response = JSON.parse(response.body)
+        json_response = response.parsed_body
         expect(json_response["error"]).to eq("Invalid token")
       end
     end
@@ -49,7 +49,7 @@ RSpec.describe "Api::V1::Users", type: :request do
               as: :json
 
         expect(response).to have_http_status(:ok)
-        json_response = JSON.parse(response.body)
+        json_response = response.parsed_body
         expect(json_response["message"]).to eq("Profile updated successfully")
         expect(json_response["user"]["name"]).to eq("New Name")
         expect(json_response["user"]["email"]).to eq(user.email)
@@ -62,7 +62,7 @@ RSpec.describe "Api::V1::Users", type: :request do
               as: :json
 
         expect(response).to have_http_status(:ok)
-        json_response = JSON.parse(response.body)
+        json_response = response.parsed_body
         expect(json_response["message"]).to eq("Profile updated successfully")
         expect(json_response["user"]["email"]).to eq("newemail@example.com")
         expect(json_response["user"]["name"]).to eq(user.name)
@@ -75,7 +75,7 @@ RSpec.describe "Api::V1::Users", type: :request do
               as: :json
 
         expect(response).to have_http_status(:ok)
-        json_response = JSON.parse(response.body)
+        json_response = response.parsed_body
         expect(json_response["user"]["name"]).to eq("New Name")
         expect(json_response["user"]["email"]).to eq("newemail@example.com")
       end
@@ -87,7 +87,7 @@ RSpec.describe "Api::V1::Users", type: :request do
               as: :json
 
         expect(response).to have_http_status(:bad_request)
-        json_response = JSON.parse(response.body)
+        json_response = response.parsed_body
         expect(json_response["error"]).to include("At least one parameter must be provided")
       end
 
@@ -98,7 +98,7 @@ RSpec.describe "Api::V1::Users", type: :request do
               as: :json
 
         expect(response).to have_http_status(:unprocessable_content)
-        json_response = JSON.parse(response.body)
+        json_response = response.parsed_body
         expect(json_response["errors"]).to be_present
       end
 
@@ -111,7 +111,7 @@ RSpec.describe "Api::V1::Users", type: :request do
               as: :json
 
         expect(response).to have_http_status(:unprocessable_content)
-        json_response = JSON.parse(response.body)
+        json_response = response.parsed_body
         expect(json_response["errors"]).to include("Email has already been taken")
       end
     end
@@ -134,7 +134,7 @@ RSpec.describe "Api::V1::Users", type: :request do
             as: :json
 
         expect(response).to have_http_status(:ok)
-        json_response = JSON.parse(response.body)
+        json_response = response.parsed_body
         expect(json_response["message"]).to eq("Profile replaced successfully")
         expect(json_response["user"]["name"]).to eq("Replaced Name")
         expect(json_response["user"]["email"]).to eq("replaced@example.com")
@@ -147,7 +147,7 @@ RSpec.describe "Api::V1::Users", type: :request do
             as: :json
 
         expect(response).to have_http_status(:bad_request)
-        json_response = JSON.parse(response.body)
+        json_response = response.parsed_body
         expect(json_response["error"]).to include("name")
       end
 
@@ -158,7 +158,7 @@ RSpec.describe "Api::V1::Users", type: :request do
             as: :json
 
         expect(response).to have_http_status(:bad_request)
-        json_response = JSON.parse(response.body)
+        json_response = response.parsed_body
         expect(json_response["error"]).to include("email")
       end
 
@@ -169,7 +169,7 @@ RSpec.describe "Api::V1::Users", type: :request do
             as: :json
 
         expect(response).to have_http_status(:bad_request)
-        json_response = JSON.parse(response.body)
+        json_response = response.parsed_body
         expect(json_response["error"]).to include("name")
         expect(json_response["error"]).to include("email")
       end
@@ -181,7 +181,7 @@ RSpec.describe "Api::V1::Users", type: :request do
             as: :json
 
         expect(response).to have_http_status(:unprocessable_content)
-        json_response = JSON.parse(response.body)
+        json_response = response.parsed_body
         expect(json_response["errors"]).to be_present
       end
     end

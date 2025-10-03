@@ -2,17 +2,17 @@ require "rails_helper"
 
 RSpec.describe Trip, type: :model do
   describe "associations" do
-    it { should belong_to(:user) }
+    it { is_expected.to belong_to(:user) }
   end
 
   describe "validations" do
-    it { should validate_presence_of(:title) }
+    it { is_expected.to validate_presence_of(:title) }
   end
 
   describe "custom validations" do
     context "end_date_after_start_date validation" do
       it "is valid when end_date is after start_date" do
-        trip = build(:trip, start_date: Date.today, end_date: Date.today + 1.day)
+        trip = build(:trip, start_date: Time.zone.today, end_date: Time.zone.today + 1.day)
         expect(trip).to be_valid
       end
 
@@ -28,7 +28,7 @@ RSpec.describe Trip, type: :model do
       end
 
       it "is valid when end_date equals start_date" do
-        trip = build(:trip, start_date: Date.today, end_date: Date.today)
+        trip = build(:trip, start_date: Time.zone.today, end_date: Time.zone.today)
         expect(trip).to be_valid
       end
     end

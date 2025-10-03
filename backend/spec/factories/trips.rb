@@ -12,8 +12,8 @@ FactoryBot.define do
     end
 
     trait :with_invalid_dates do
-      start_date { Date.today }
-      end_date { Date.today - 1.day }
+      start_date { Time.zone.today }
+      end_date { Time.zone.today - 1.day }
     end
 
     trait :past_trip do
@@ -22,8 +22,8 @@ FactoryBot.define do
     end
 
     trait :ongoing_trip do
-      start_date { Date.today - 5.days }
-      end_date { Date.today + 5.days }
+      start_date { Time.zone.today - 5.days }
+      end_date { Time.zone.today + 5.days }
     end
   end
 end

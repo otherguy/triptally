@@ -18,7 +18,7 @@ RSpec.describe "Api::V1::Trips", type: :request do
         get "/api/v1/trips", headers: auth_headers(user)
 
         expect(response).to have_http_status(:ok)
-        json_response = JSON.parse(response.body)
+        json_response = response.parsed_body
         expect(json_response["trips"].size).to eq(3)
         json_response["trips"].each do |trip|
           expect(Trip.find(trip["id"]).user_id).to eq(user.id)
@@ -29,8 +29,8 @@ RSpec.describe "Api::V1::Trips", type: :request do
         get "/api/v1/trips", headers: auth_headers(user)
 
         expect(response).to have_http_status(:ok)
-        json_response = JSON.parse(response.body)
-        created_at_values = json_response["trips"].map { |t| Time.parse(t["created_at"]) }
+        json_response = response.parsed_body
+        created_at_values = json_response["trips"].map { |t| Time.zone.parse(t["created_at"]) }
         expect(created_at_values).to eq(created_at_values.sort.reverse)
       end
 
@@ -39,7 +39,7 @@ RSpec.describe "Api::V1::Trips", type: :request do
         get "/api/v1/trips", headers: auth_headers(user_without_trips)
 
         expect(response).to have_http_status(:ok)
-        json_response = JSON.parse(response.body)
+        json_response = response.parsed_body
         expect(json_response["trips"]).to eq([])
       end
     end
@@ -49,7 +49,7 @@ RSpec.describe "Api::V1::Trips", type: :request do
         get "/api/v1/trips"
 
         expect(response).to have_http_status(:unauthorized)
-        json_response = JSON.parse(response.body)
+        json_response = response.parsed_body
         expect(json_response["error"]).to eq("Missing token")
       end
     end
@@ -61,7 +61,7 @@ RSpec.describe "Api::V1::Trips", type: :request do
         get "/api/v1/trips/#{trip.id}", headers: auth_headers(user)
 
         expect(response).to have_http_status(:ok)
-        json_response = JSON.parse(response.body)
+        json_response = response.parsed_body
         expect(json_response["trip"]["id"]).to eq(trip.id)
         expect(json_response["trip"]["title"]).to eq(trip.title)
         expect(json_response["trip"]["description"]).to eq(trip.description)
@@ -75,7 +75,7 @@ RSpec.describe "Api::V1::Trips", type: :request do
         get "/api/v1/trips/99999", headers: auth_headers(user)
 
         expect(response).to have_http_status(:not_found)
-        json_response = JSON.parse(response.body)
+        json_response = response.parsed_body
         expect(json_response["error"]).to eq("Trip not found")
       end
 
@@ -84,7 +84,7 @@ RSpec.describe "Api::V1::Trips", type: :request do
         get "/api/v1/trips/#{other_trip.id}", headers: auth_headers(user)
 
         expect(response).to have_http_status(:not_found)
-        json_response = JSON.parse(response.body)
+        json_response = response.parsed_body
         expect(json_response["error"]).to eq("Trip not found")
       end
     end
@@ -118,7 +118,7 @@ RSpec.describe "Api::V1::Trips", type: :request do
         }.to change(Trip, :count).by(1)
 
         expect(response).to have_http_status(:created)
-        json_response = JSON.parse(response.body)
+        json_response = response.parsed_body
         expect(json_response["message"]).to eq("Trip created successfully")
         expect(json_response["trip"]["title"]).to eq("Summer Vacation")
         expect(json_response["trip"]["description"]).to eq("Trip to the beach")
@@ -137,7 +137,7 @@ RSpec.describe "Api::V1::Trips", type: :request do
         }.to change(Trip, :count).by(1)
 
         expect(response).to have_http_status(:created)
-        json_response = JSON.parse(response.body)
+        json_response = response.parsed_body
         expect(json_response["trip"]["title"]).to eq("Quick Trip")
         expect(json_response["trip"]["description"]).to be_nil
         expect(json_response["trip"]["start_date"]).to be_nil
@@ -151,7 +151,7 @@ RSpec.describe "Api::V1::Trips", type: :request do
              as: :json
 
         expect(response).to have_http_status(:bad_request)
-        json_response = JSON.parse(response.body)
+        json_response = response.parsed_body
         expect(json_response["error"]).to include("title")
       end
 
@@ -160,13 +160,13 @@ RSpec.describe "Api::V1::Trips", type: :request do
              params: {
                title: "Invalid Trip",
                start_date: Date.tomorrow,
-               end_date: Date.today,
+               end_date: Time.zone.today,
              },
              headers: auth_headers(user),
              as: :json
 
         expect(response).to have_http_status(:unprocessable_content)
-        json_response = JSON.parse(response.body)
+        json_response = response.parsed_body
         expect(json_response["errors"]).to include("End date must be after start date")
       end
     end
@@ -189,7 +189,7 @@ RSpec.describe "Api::V1::Trips", type: :request do
               as: :json
 
         expect(response).to have_http_status(:ok)
-        json_response = JSON.parse(response.body)
+        json_response = response.parsed_body
         expect(json_response["message"]).to eq("Trip updated successfully")
         expect(json_response["trip"]["title"]).to eq("Updated Title")
         expect(trip.reload.title).to eq("Updated Title")
@@ -202,7 +202,7 @@ RSpec.describe "Api::V1::Trips", type: :request do
               as: :json
 
         expect(response).to have_http_status(:ok)
-        json_response = JSON.parse(response.body)
+        json_response = response.parsed_body
         expect(json_response["trip"]["description"]).to eq("Updated description")
       end
 
@@ -216,7 +216,7 @@ RSpec.describe "Api::V1::Trips", type: :request do
               as: :json
 
         expect(response).to have_http_status(:ok)
-        json_response = JSON.parse(response.body)
+        json_response = response.parsed_body
         expect(Date.parse(json_response["trip"]["start_date"])).to eq(new_start)
         expect(Date.parse(json_response["trip"]["end_date"])).to eq(new_end)
       end
@@ -228,18 +228,18 @@ RSpec.describe "Api::V1::Trips", type: :request do
               as: :json
 
         expect(response).to have_http_status(:bad_request)
-        json_response = JSON.parse(response.body)
+        json_response = response.parsed_body
         expect(json_response["error"]).to include("At least one parameter must be provided")
       end
 
       it "returns error when updating to invalid dates" do
         patch "/api/v1/trips/#{trip.id}",
-              params: { start_date: Date.tomorrow, end_date: Date.today },
+              params: { start_date: Date.tomorrow, end_date: Time.zone.today },
               headers: auth_headers(user),
               as: :json
 
         expect(response).to have_http_status(:unprocessable_content)
-        json_response = JSON.parse(response.body)
+        json_response = response.parsed_body
         expect(json_response["errors"]).to include("End date must be after start date")
       end
 
@@ -278,14 +278,14 @@ RSpec.describe "Api::V1::Trips", type: :request do
             as: :json
 
         expect(response).to have_http_status(:ok)
-        json_response = JSON.parse(response.body)
+        json_response = response.parsed_body
         expect(json_response["message"]).to eq("Trip replaced successfully")
         expect(json_response["trip"]["title"]).to eq("Replaced Trip")
         expect(json_response["trip"]["description"]).to eq("New description")
       end
 
       it "replaces trip and clears optional fields when not provided" do
-        trip.update(description: "Old description", start_date: Date.today, end_date: Date.today + 1)
+        trip.update(description: "Old description", start_date: Time.zone.today, end_date: Time.zone.today + 1)
 
         put "/api/v1/trips/#{trip.id}",
             params: { title: "Minimal Trip", description: nil, start_date: nil, end_date: nil },
@@ -293,7 +293,7 @@ RSpec.describe "Api::V1::Trips", type: :request do
             as: :json
 
         expect(response).to have_http_status(:ok)
-        json_response = JSON.parse(response.body)
+        json_response = response.parsed_body
         expect(json_response["trip"]["title"]).to eq("Minimal Trip")
         expect(json_response["trip"]["description"]).to be_nil
         expect(json_response["trip"]["start_date"]).to be_nil
@@ -307,7 +307,7 @@ RSpec.describe "Api::V1::Trips", type: :request do
             as: :json
 
         expect(response).to have_http_status(:bad_request)
-        json_response = JSON.parse(response.body)
+        json_response = response.parsed_body
         expect(json_response["error"]).to include("title")
       end
 
@@ -316,13 +316,13 @@ RSpec.describe "Api::V1::Trips", type: :request do
             params: {
               title: "Invalid dates",
               start_date: Date.tomorrow,
-              end_date: Date.today,
+              end_date: Time.zone.today,
             },
             headers: auth_headers(user),
             as: :json
 
         expect(response).to have_http_status(:unprocessable_content)
-        json_response = JSON.parse(response.body)
+        json_response = response.parsed_body
         expect(json_response["errors"]).to include("End date must be after start date")
       end
 
@@ -357,7 +357,7 @@ RSpec.describe "Api::V1::Trips", type: :request do
         }.to change(Trip, :count).by(-1)
 
         expect(response).to have_http_status(:ok)
-        json_response = JSON.parse(response.body)
+        json_response = response.parsed_body
         expect(json_response["message"]).to eq("Trip deleted successfully")
       end
 
@@ -365,7 +365,7 @@ RSpec.describe "Api::V1::Trips", type: :request do
         delete "/api/v1/trips/99999", headers: auth_headers(user)
 
         expect(response).to have_http_status(:not_found)
-        json_response = JSON.parse(response.body)
+        json_response = response.parsed_body
         expect(json_response["error"]).to eq("Trip not found")
       end
 

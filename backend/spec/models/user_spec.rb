@@ -2,18 +2,18 @@ require "rails_helper"
 
 RSpec.describe User, type: :model do
   describe "associations" do
-    it { should have_many(:trips).dependent(:destroy) }
+    it { is_expected.to have_many(:trips).dependent(:destroy) }
   end
 
   describe "validations" do
     subject { build(:user) }
 
-    it { should validate_presence_of(:email) }
-    it { should validate_uniqueness_of(:email) }
-    it { should allow_value("user@example.com").for(:email) }
-    it { should_not allow_value("invalid_email").for(:email) }
-    it { should validate_presence_of(:name) }
-    it { should have_secure_password }
+    it { is_expected.to validate_presence_of(:email) }
+    it { is_expected.to validate_uniqueness_of(:email) }
+    it { is_expected.to allow_value("user@example.com").for(:email) }
+    it { is_expected.not_to allow_value("invalid_email").for(:email) }
+    it { is_expected.to validate_presence_of(:name) }
+    it { is_expected.to have_secure_password }
   end
 
   describe "password validations" do
@@ -50,7 +50,7 @@ RSpec.describe User, type: :model do
   describe "associations cascade" do
     it "destroys associated trips when user is destroyed" do
       user = create(:user, :with_trips)
-      expect { user.destroy }.to change { Trip.count }.by(-3)
+      expect { user.destroy }.to change(Trip, :count).by(-3)
     end
   end
 end

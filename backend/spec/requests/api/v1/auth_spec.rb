@@ -19,7 +19,7 @@ RSpec.describe "Api::V1::Auth", type: :request do
         }.to change(User, :count).by(1)
 
         expect(response).to have_http_status(:created)
-        json_response = JSON.parse(response.body)
+        json_response = response.parsed_body
         expect(json_response["message"]).to eq("User created successfully")
         expect(json_response["token"]).to be_present
         expect(json_response["user"]["email"]).to eq("john@example.com")
@@ -35,7 +35,7 @@ RSpec.describe "Api::V1::Auth", type: :request do
              as: :json
 
         expect(response).to have_http_status(:bad_request)
-        json_response = JSON.parse(response.body)
+        json_response = response.parsed_body
         expect(json_response["error"]).to include("name")
       end
 
@@ -45,7 +45,7 @@ RSpec.describe "Api::V1::Auth", type: :request do
              as: :json
 
         expect(response).to have_http_status(:bad_request)
-        json_response = JSON.parse(response.body)
+        json_response = response.parsed_body
         expect(json_response["error"]).to include("email")
       end
 
@@ -55,7 +55,7 @@ RSpec.describe "Api::V1::Auth", type: :request do
              as: :json
 
         expect(response).to have_http_status(:bad_request)
-        json_response = JSON.parse(response.body)
+        json_response = response.parsed_body
         expect(json_response["error"]).to include("password")
       end
     end
@@ -67,7 +67,7 @@ RSpec.describe "Api::V1::Auth", type: :request do
              as: :json
 
         expect(response).to have_http_status(:unprocessable_content)
-        json_response = JSON.parse(response.body)
+        json_response = response.parsed_body
         expect(json_response["errors"]).to be_present
       end
 
@@ -77,7 +77,7 @@ RSpec.describe "Api::V1::Auth", type: :request do
              as: :json
 
         expect(response).to have_http_status(:unprocessable_content)
-        json_response = JSON.parse(response.body)
+        json_response = response.parsed_body
         expect(json_response["errors"]).to include("Password is too short (minimum is 6 characters)")
       end
 
@@ -87,7 +87,7 @@ RSpec.describe "Api::V1::Auth", type: :request do
         post "/api/v1/auth/register", params: valid_user_attributes, as: :json
 
         expect(response).to have_http_status(:unprocessable_content)
-        json_response = JSON.parse(response.body)
+        json_response = response.parsed_body
         expect(json_response["errors"]).to include("Email has already been taken")
       end
     end
@@ -103,7 +103,7 @@ RSpec.describe "Api::V1::Auth", type: :request do
              as: :json
 
         expect(response).to have_http_status(:ok)
-        json_response = JSON.parse(response.body)
+        json_response = response.parsed_body
         expect(json_response["message"]).to eq("Login successful")
         expect(json_response["token"]).to be_present
         expect(json_response["user"]["email"]).to eq("john@example.com")
@@ -118,7 +118,7 @@ RSpec.describe "Api::V1::Auth", type: :request do
              as: :json
 
         expect(response).to have_http_status(:unauthorized)
-        json_response = JSON.parse(response.body)
+        json_response = response.parsed_body
         expect(json_response["error"]).to eq("Invalid email or password")
       end
 
@@ -128,7 +128,7 @@ RSpec.describe "Api::V1::Auth", type: :request do
              as: :json
 
         expect(response).to have_http_status(:unauthorized)
-        json_response = JSON.parse(response.body)
+        json_response = response.parsed_body
         expect(json_response["error"]).to eq("Invalid email or password")
       end
     end
@@ -140,7 +140,7 @@ RSpec.describe "Api::V1::Auth", type: :request do
              as: :json
 
         expect(response).to have_http_status(:bad_request)
-        json_response = JSON.parse(response.body)
+        json_response = response.parsed_body
         expect(json_response["error"]).to include("email")
       end
 
@@ -150,7 +150,7 @@ RSpec.describe "Api::V1::Auth", type: :request do
              as: :json
 
         expect(response).to have_http_status(:bad_request)
-        json_response = JSON.parse(response.body)
+        json_response = response.parsed_body
         expect(json_response["error"]).to include("password")
       end
     end
@@ -163,7 +163,7 @@ RSpec.describe "Api::V1::Auth", type: :request do
       delete "/api/v1/auth/logout", headers: auth_headers(user)
 
       expect(response).to have_http_status(:ok)
-      json_response = JSON.parse(response.body)
+      json_response = response.parsed_body
       expect(json_response["message"]).to eq("Logged out successfully")
     end
 
@@ -171,7 +171,7 @@ RSpec.describe "Api::V1::Auth", type: :request do
       delete "/api/v1/auth/logout"
 
       expect(response).to have_http_status(:unauthorized)
-      json_response = JSON.parse(response.body)
+      json_response = response.parsed_body
       expect(json_response["error"]).to eq("Missing token")
     end
   end
