@@ -6,13 +6,25 @@ updates:
     schedule:
       interval: daily
     open-pull-requests-limit: 10
+    assignees:
+      - "otherguy"
+    reviewers:
+      - "otherguy"
   - package-ecosystem: github-actions
     directory: "/"
     schedule:
       interval: daily
     open-pull-requests-limit: 10
+    assignees:
+      - "otherguy"
+    reviewers:
+      - "otherguy"
   - package-ecosystem: pub
     directory: "/mobile/"
     schedule:
       interval: daily
     open-pull-requests-limit: 10
+    assignees:
+      - "otherguy"
+    reviewers:
+      - "otherguy"
