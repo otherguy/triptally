@@ -9,7 +9,7 @@ namespace :api do
       # Run rswag specs to generate the OpenAPI spec
       system("bundle exec rails rswag:specs:swaggerize")
 
-      if File.exist?(Rails.root.join("docs/api_spec.yaml"))
+      if Rails.root.join("docs/api_spec.yaml").exist?
         puts "✅ OpenAPI spec generated: docs/api_spec.yaml"
 
         puts "🔧 Generating static HTML documentation..."
@@ -17,7 +17,7 @@ namespace :api do
         # Generate static HTML using redoc-cli
         system("bun run --yarn docs:generate")
 
-        if File.exist?(Rails.root.join("docs/api.html"))
+        if Rails.root.join("docs/api.html").exist?
           puts "✅ Static HTML documentation generated: docs/api.html"
           puts "📖 Open docs/api.html in your browser to view the documentation"
         else
@@ -35,7 +35,7 @@ namespace :api do
       puts "🔧 Generating OpenAPI specification..."
       system("bundle exec rails rswag:specs:swaggerize")
 
-      if File.exist?(Rails.root.join("docs/api_spec.yaml"))
+      if Rails.root.join("docs/api_spec.yaml").exist?
         puts "✅ OpenAPI spec generated: docs/api_spec.yaml"
       else
         puts "❌ Failed to generate OpenAPI specification"
@@ -56,7 +56,7 @@ namespace :api do
       puts "🔧 Generating static HTML documentation..."
       system("bun run --yarn docs:generate")
 
-      if File.exist?(Rails.root.join("docs/api.html"))
+      if Rails.root.join("docs/api.html").exist?
         puts "✅ Static HTML documentation generated: docs/api.html"
         puts "📖 Open docs/api.html in your browser to view the documentation"
       else
