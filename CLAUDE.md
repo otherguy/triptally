@@ -44,6 +44,8 @@ Your expertise includes:
 
 ### Key Gems
 
+- `sidekiq` - Async workers for email sending and other background processing
+- `jb` - Simplify JSON API development
 - `jwt` - JSON Web Token authentication
 - `bcrypt` - Secure password hashing
 - `uuid7` - UUID v7 generation for user IDs
@@ -68,6 +70,7 @@ Your expertise includes:
 
 ```json
 {
+  "status": "ok",
   "message": "Success message",
   "user": { "id": "uuid", "name": "...", "email": "..." },
   "token": "jwt_token"
@@ -78,11 +81,8 @@ Your expertise includes:
 
 ```json
 {
-  "error": "Error message"
-}
-// or
-{
-  "errors": ["Error 1", "Error 2"]
+  "status": "error",
+  "errors": ["Error message 1", "Error message 2"]
 }
 ```
 

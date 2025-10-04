@@ -12,6 +12,10 @@
 ## Backend
 
 - [x] Change user IDs to UUIDs (v7) for better scalability
+- [ ] Refactor to use `jb` and views
+- [ ] Configure Rails email sending using my existing mail provider (is there a gem? if not, smtp) and sidekiq workers
+- [ ] Add profile picture support with a default profile picture of user initials and background color based on the uuid
+- [ ] Configure Redis Rails cache in testing / production mode
 - [ ] Implement JWT token blacklisting using Rails cache for proper logout functionality
 - [ ] Add API rate limiting
 - [ ] Add email verification for user registration and update
