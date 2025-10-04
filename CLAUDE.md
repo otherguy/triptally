@@ -72,8 +72,10 @@ Your expertise includes:
 {
   "status": "ok",
   "message": "Success message",
-  "user": { "id": "uuid", "name": "...", "email": "..." },
-  "token": "jwt_token"
+  "data": {
+      // Resource data here
+      "user": { "id": "uuid", "name": "...", "email": "..." },
+  }
 }
 ```
 

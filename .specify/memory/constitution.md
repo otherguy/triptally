@@ -45,12 +45,14 @@ Ratification: Initial constitution establishing core development principles
 - No code merges without corresponding tests
 
 **Backend (Rails)**:
+
 - RSpec request specs for all API endpoints
 - Model specs with Factory Bot for data validation
 - Edge cases and error conditions tested
 - SimpleCov coverage reports required
 
 **Mobile (Flutter)**:
+
 - Widget tests for all screens and components
 - Repository unit tests with mocked dependencies
 - Integration tests for critical user flows
@@ -72,6 +74,7 @@ status reflects commitment to reliability and maintainability.
 - DRY principle applied (extract shared logic to services/utilities)
 
 **Architecture Patterns**:
+
 - Backend: RESTful controllers (thin), services (business logic), models (data)
 - Mobile: Repository pattern with Riverpod state management
 - Separation of concerns enforced at layer boundaries
@@ -93,6 +96,7 @@ platforms.**
 - Authentication flows identical across iOS/Android
 
 **Response Format Contract**:
+
 ```json
 Success: { "status": "ok", "message": "...", "data": {...} }
 Error:   { "status": "error", "errors": ["msg1", "msg2"] }
@@ -113,6 +117,7 @@ development by establishing clear contracts between frontend and backend.
 - Background jobs (Sidekiq) for async operations >500ms
 
 **Performance Testing**:
+
 - RSpec performance tests for critical endpoints
 - Flutter DevTools timeline analysis for janky frames
 - Load testing for endpoints expecting high traffic
@@ -134,6 +139,7 @@ Early establishment of performance budgets prevents costly refactoring later.
 - OAuth providers verified (Apple, Google via Omniauth)
 
 **Prohibited Practices**:
+
 - Logging sensitive data (passwords, tokens, PII)
 - Exposing internal error details to clients
 - Storing tokens in localStorage (mobile: use secure storage)
@@ -156,7 +162,7 @@ vulnerabilities from reaching production.
 
 ### Mobile (Flutter/Dart)
 
-- Flutter SDK >=3.0.0 <4.0.0
+- Flutter SDK >=4.0.0
 - Dart strict mode enabled
 - Riverpod for state management (no Provider/Bloc mix)
 - Go Router for declarative routing
@@ -165,15 +171,16 @@ vulnerabilities from reaching production.
 
 ### Monorepo Structure
 
-- `/backend` - Rails API application
-- `/mobile` - Flutter application
-- Shared documentation in root (CLAUDE.md, TODO.md)
+- `./backend` - Rails API application
+- `./mobile` - Flutter application
+- Shared documentation in root (CLAUDE.md, REQUIREMENTS.md, TODO.md)
 - Feature specs in `.specify/specs/[###-feature-name]/`
 
 ## Development Workflow
 
 ### Pull Request Requirements
 
+- Linters passing (RuboCop, Dart analyzer, etc.)
 - All tests passing (backend: RSpec, mobile: Flutter test)
 - Code quality checks passing (RuboCop, Dart analyzer)
 - Security scans passing (Brakeman)
@@ -190,13 +197,12 @@ vulnerabilities from reaching production.
 - [ ] API contracts documented (RSwag annotations)
 - [ ] Error handling complete (user-friendly messages)
 - [ ] Mobile: code generation run if models changed (`build_runner`)
+- [ ] TODO.md updated if the implementation completes one of the open TODOs (never add new TODOs!)
 
 ### Commit Standards
 
-- Conventional Commits format: `type(scope): description`
-- Types: `feat`, `fix`, `refactor`, `test`, `docs`, `chore`
-- Scopes: `backend`, `mobile`, `api`, `ui`, `auth`, etc.
-- Breaking changes noted in commit body with `BREAKING CHANGE:` footer
+- Descriptive commit messages (imperative mood)
+- Small, focused commits (one logical change per commit)
 
 ## Governance
 
