@@ -1,0 +1,27 @@
+name: Backend CI
+
+on:
+  pull_request:
+  push:
+    branches: [ main ]
+
+defaults:
+  run:
+    working-directory: .
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v5
+
+      - uses: DavidAnson/markdownlint-cli2-action@v20
+        with:
+          globs: |
+            README.md
+            TODO.md
+            CLAUDE.md
+            REQUIREMENTS.md
+          config: ".markdownlint.yaml"
