@@ -11,11 +11,14 @@ gem "rails", "~> 8.0"
 gem "puma", "~> 7.0"
 
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
-gem "jbuilder"
+gem "jb", "~> 0.8"
 
 # Use sqlite3 and PostgreSQL as the databases for Active Record
 gem "pg", "~> 1.6"
 gem "sqlite3", "~> 2.7"
+
+# Sidekiq workers
+gem "sidekiq", "~> 8.0"
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem "tzinfo-data", platforms: %i[ windows jruby ]
